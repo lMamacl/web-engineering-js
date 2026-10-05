@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    </head>
+    <body>
+    <script>
+         let arrayOfNumbers = [1, 2, 3, 4];
+         console.log("Typ zmiennej:", typeof arrayOfNumbers);
+         let nowaDlugosc = arrayOfNumbers.push(5);
+         console.log("push(5) -> tablica po zmianie:", arrayOfNumbers, "| zwrócono:", nowaDlugosc);
+         console.log("length:", arrayOfNumbers.length);
+         let wycinek = arrayOfNumbers.slice(1, 3);
+         console.log("slice(1, 3) -> zwrócona nowa tablica:", wycinek);
+         console.log("oryginał po slice (nienaruszony):", arrayOfNumbers);
+         let usuniete = arrayOfNumbers.splice(1, 2);
+         console.log("splice(1, 2) -> usunięte elementy:", usuniete);
+         console.log("oryginał po splice (zmieniony!):", arrayOfNumbers);
+         let podwojone = arrayOfNumbers.map((x) => x * 2);
+         console.log("map(x * 2) -> nowa tablica:", podwojone);
+         console.log("oryginał po map (nienaruszony):", arrayOfNumbers);
+         arrayOfNumbers.forEach((el, index) => {
+         console.log(`tab[${index}] = ${el}`);
+         });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    </head>
+    <body>
+    <script>
+        let a = Boolean(true);
+        console.log("Typ a:", typeof a);
+        let b = Object({ name: 'Jan', age: 20 });
+        console.log("Typ b:", typeof b);
+
+        console.log("--- 1. Pętla for...in ---");
+        for (let key in b) {
+            console.log(`Klucz: ${key}, Wartość: ${b[key]}`);
+        }   
+        
+        console.log("--- 2. Object.keys() + forEach ---");
+        Object.keys(b).forEach((key) => {
+            console.log(`Klucz: ${key}, Wartość: ${b[key]}`);
+        });
+
+        console.log("--- 3. Object.values() + forEach ---");
+        Object.values(b).forEach((val) => {
+            console.log(`Wartość: ${val}`);
+        });
+        console.log("--- 4. Object.entries() + forEach ---");
+        Object.entries(b).forEach(([key, val]) => {
+            console.log(`Klucz: ${key} -> Wartość: ${val}`);
+        });
+        b.name = "Janusz";
+        b.age = 21;
+        console.log(b);
+        b.newField = 100;
+        console.log(b);
+        
+    </script>
+    </body>
+</html>
