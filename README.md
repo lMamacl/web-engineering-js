@@ -10,7 +10,8 @@ JS/
 │   └── zadanie-1/         # Typowanie, tablice, obiekty, manipulacja DOM
 ├── Angular/               # Workspace Angular 22 (Multi-Project)
 │   ├── projects/
-│   │   └── zadanie-2/     # Drugie zadanie pracowni specjalistycznej
+│   │   ├── zadanie-2/     # Drugie zadanie pracowni specjalistycznej (TypeScript & OOP)
+│   │   └── zadanie-3/     # Trzecie zadanie pracowni specjalistycznej
 │   ├── angular.json
 │   └── package.json
 └── React/                 # Środowisko React 19 + Vite (kolejne zadania)

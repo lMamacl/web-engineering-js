@@ -26,6 +26,12 @@
     },
     {
       "path": "./projects/zadanie-2/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/zadanie-3/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/zadanie-3/tsconfig.spec.json"
     }
   ]
 }

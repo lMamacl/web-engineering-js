@@ -4,10 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:zadanie-2": "ng serve zadanie-2",
+    "start:zadanie-3": "ng serve zadanie-3",
     "build": "ng build",
+    "build:zadanie-2": "ng build zadanie-2",
+    "build:zadanie-3": "ng build zadanie-3",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:zadanie-1": "node dist/zadanie-1/server/server.mjs"
+    "test:zadanie-2": "ng test zadanie-2",
+    "test:zadanie-3": "ng test zadanie-3",
+    "serve:ssr:zadanie-2": "node dist/zadanie-2/server/server.mjs",
+    "serve:ssr:zadanie-3": "node dist/zadanie-3/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
