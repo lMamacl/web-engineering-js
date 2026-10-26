@@ -1,0 +1,28 @@
+main {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+article {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+}
+
+h2 {
+  cursor: pointer;
+}
+
+span {
+  margin-right: 1rem;
+}
+
+.ocena-negatywna {
+  color: red;
+  font-weight: bold;
+}
