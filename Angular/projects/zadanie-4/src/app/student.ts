@@ -9,12 +9,11 @@ export class Student {
     nazwisko: string,
     wiek: number,
     oceny: number[] = []
-    
   ) {
     this._imie = imie;
     this._nazwisko = nazwisko;
     this._wiek = wiek;
-    this._oceny = oceny;
+    this._oceny = [...oceny];
   }
 
   get imie(): string {
@@ -22,7 +21,7 @@ export class Student {
   }
 
   set imie(value: string) {
-    this._imie = value;
+    this._imie = value.trim();
   }
 
   get nazwisko(): string {
@@ -30,7 +29,7 @@ export class Student {
   }
 
   set nazwisko(value: string) {
-    this._nazwisko = value;
+    this._nazwisko = value.trim();
   }
 
   get wiek(): number {
@@ -38,7 +37,9 @@ export class Student {
   }
 
   set wiek(value: number) {
-    this._wiek = value;
+    if (value > 0) {
+      this._wiek = value;
+    }
   }
 
   get oceny(): number[] {
@@ -49,4 +50,9 @@ export class Student {
     this._oceny = value;
   }
 
+  dodajOcene(ocena: number): void {
+    if (ocena >= 2.0 && ocena <= 5.0) {
+      this._oceny.push(ocena);
+    }
+  }
 }

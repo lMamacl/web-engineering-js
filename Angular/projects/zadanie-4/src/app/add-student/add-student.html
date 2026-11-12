@@ -1,31 +1,50 @@
-<h2>Dodaj studenta</h2>
-<form (ngSubmit)="dodajStudenta()">
-  <label for="imie">Imię:</label>
-  <input
-    type="text"
-    id="imie"
-    name="imie"
-    [(ngModel)]="imie"
-    (ngModelChange)="imie.set($event)"
-  />
+<section class="formularz-karta">
+  <h3>Dodaj nowego studenta</h3>
 
-  <label for="nazwisko">Nazwisko:</label>
-  <input
-    type="text"
-    id="nazwisko"
-    name="nazwisko"
-    [(ngModel)]="nazwisko"
-    (ngModelChange)="nazwisko.set($event)"
-  />
+  <form (ngSubmit)="zapiszStudenta()">
+    <div class="pole-formularza">
+      <label for="dodaj-imie">Imię:</label>
+      <input
+        id="dodaj-imie"
+        name="imie"
+        type="text"
+        [ngModel]="imie()"
+        (ngModelChange)="zmienImie($event)"
+        placeholder="Wpisz imię"
+        required
+      />
+    </div>
 
-  <label for="wiek">Wiek:</label>
-  <input
-    type="number"
-    id="wiek"
-    name="wiek"
-    [(ngModel)]="wiek"
-    (ngModelChange)="wiek.set($event)"
-  />
+    <div class="pole-formularza">
+      <label for="dodaj-nazwisko">Nazwisko:</label>
+      <input
+        id="dodaj-nazwisko"
+        name="nazwisko"
+        type="text"
+        [ngModel]="nazwisko()"
+        (ngModelChange)="zmienNazwisko($event)"
+        placeholder="Wpisz nazwisko"
+        required
+      />
+    </div>
 
-  <button type="button" (click)="dodajStudenta()">Dodaj studenta</button>
-</form>
+    <div class="pole-formularza">
+      <label for="dodaj-wiek">Wiek:</label>
+      <input
+        id="dodaj-wiek"
+        name="wiek"
+        type="number"
+        min="1"
+        [ngModel]="wiek()"
+        (ngModelChange)="zmienWiek($event)"
+        placeholder="Wpisz wiek"
+        required
+      />
+    </div>
+
+    <div class="akcje-formularza">
+      <button type="submit" class="przycisk przycisk-sukces">Zapisz studenta</button>
+      <button type="button" class="przycisk przycisk-anuluj" (click)="zamknijFormularz()">Anuluj</button>
+    </div>
+  </form>
+</section>
