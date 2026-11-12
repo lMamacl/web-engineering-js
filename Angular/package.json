@@ -15,7 +15,6 @@
     "test": "ng test",
     "test:zadanie-2": "ng test zadanie-2",
     "test:zadanie-3": "ng test zadanie-3",
-    "test:zadanie-4": "ng test zadanie-4",
     "serve:ssr:zadanie-2": "node dist/zadanie-2/server/server.mjs",
     "serve:ssr:zadanie-3": "node dist/zadanie-3/server/server.mjs"
   },

@@ -12,7 +12,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "types": ["vitest/globals"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -35,9 +36,6 @@
     },
     {
       "path": "./projects/zadanie-4/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/zadanie-4/tsconfig.spec.json"
     }
   ]
 }
