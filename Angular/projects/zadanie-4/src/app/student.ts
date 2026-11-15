@@ -55,4 +55,16 @@ export class Student {
       this._oceny.push(ocena);
     }
   }
+
+  aktualizujOcene(index: number, nowaOcena: number): void {
+    if (index >= 0 && index < this._oceny.length && nowaOcena >= 2.0 && nowaOcena <= 5.0) {
+      this._oceny[index] = nowaOcena;
+    }
+  }
+
+  usunOcene(index: number): void {
+    if (index >= 0 && index < this._oceny.length) {
+      this._oceny.splice(index, 1);
+    }
+  }
 }

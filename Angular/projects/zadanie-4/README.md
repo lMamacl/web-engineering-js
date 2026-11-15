@@ -77,7 +77,7 @@ _(Źródło: [src/app/app.html#L2-L12](src/app/app.html#L2-L12))_
 
 ## 2. Model danych – klasa `Student`
 
-Klasa modeluje dane studenta z zachowaniem pełnej hermetyzacji (pola prywatne), metod dostępowych (gettery i settery) oraz dedykowanej metody biznesowej dodawania ocen.
+Klasa modeluje dane studenta z zachowaniem pełnej hermetyzacji (pola prywatne), metod dostępowych (gettery i settery) oraz metod manipulacji ocenami.
 
 ### a) Hermetyzacja i operator rozwinięcia (`...` / spread operator) w konstruktorze
 
@@ -159,9 +159,9 @@ _(Źródło: [src/app/student.ts#L19-L51](src/app/student.ts#L19-L51))_
 
 ---
 
-### c) Metoda biznesowa `dodajOcene()`
+### c) Metody zarządzania ocenami (`dodajOcene`, `aktualizujOcene`, `usunOcene`)
 
-Klasa posiada dedykowaną metodę do dodawania nowej oceny do tablicy ocen z walidacją skali ocen (od 2.0 do 5.0):
+Klasa posiada zestaw metod enkapsulujących wszelkie operacje na tablicy ocen z walidacją skali ocen (od 2.0 do 5.0) oraz indeksów:
 
 ```typescript
   dodajOcene(ocena: number): void {
@@ -169,10 +169,22 @@ Klasa posiada dedykowaną metodę do dodawania nowej oceny do tablicy ocen z wal
       this._oceny.push(ocena);
     }
   }
+
+  aktualizujOcene(index: number, nowaOcena: number): void {
+    if (index >= 0 && index < this._oceny.length && nowaOcena >= 2.0 && nowaOcena <= 5.0) {
+      this._oceny[index] = nowaOcena;
+    }
+  }
+
+  usunOcene(index: number): void {
+    if (index >= 0 && index < this._oceny.length) {
+      this._oceny.splice(index, 1);
+    }
+  }
 }
 ```
 
-_(Źródło: [src/app/student.ts#L53-L58](src/app/student.ts#L53-L58))_
+_(Źródło: [src/app/student.ts#L53-L69](src/app/student.ts#L53-L69))_
 
 ---
 
@@ -504,9 +516,9 @@ Zmienna `$event` zawiera obiekt `Student` wyemitowany przez dziecko. Metoda rodz
 
 ---
 
-## 5. Komponent potomny `EditStudent` (Komunikacja Rodzic ➔ Dziecko i dodawanie ocen)
+## 5. Komponent potomny `EditStudent` (Komunikacja Rodzic ➔ Dziecko oraz edycja i dodawanie ocen)
 
-Komponent edycji przyjmuje obiekt studenta od rodzica za pomocą Signal Input (`input.required<Student>()`). Pola formularza są wypełnione aktualnymi wartościami obiektu (odczytanymi przez gettery), a ich modyfikacja wywołuje settery obiektu `Student`.
+Komponent edycji przyjmuje obiekt studenta od rodzica za pomocą Signal Input (`input.required<Student>()`). Pola formularza są wypełnione aktualnymi wartościami obiektu (odczytanymi przez gettery), a ich modyfikacja wywołuje settery obiektu `Student`. Istniejące oceny studenta można bezpośrednio edytować w polach numerycznych lub usunąć, a także dodać nową ocenę (wymaganie 9).
 
 ### a) Klasa komponentu `EditStudent`
 
@@ -529,6 +541,16 @@ export class EditStudent {
     if (nowyWiek !== null) {
       this.student().wiek = Number(nowyWiek);
     }
+  }
+
+  zmienIstniejacaOcene(index: number, nowaWartosc: number | null): void {
+    if (nowaWartosc !== null && !isNaN(nowaWartosc)) {
+      this.student().aktualizujOcene(index, Number(nowaWartosc));
+    }
+  }
+
+  usunOcene(index: number): void {
+    this.student().usunOcene(index);
   }
 
   zmienNowaOcena(wartosc: number | null): void {
@@ -562,22 +584,23 @@ export class EditStudent {
 }
 ```
 
-_(Źródło: [src/app/edit-student/edit-student.ts#L11-L59](src/app/edit-student/edit-student.ts#L11-L59))_
+_(Źródło: [src/app/edit-student/edit-student.ts#L11-L69](src/app/edit-student/edit-student.ts#L11-L69))_
 
 #### Czym jest `input.required<T>()`?
 Zastępuje dekorator `@Input({ required: true })`. Zwraca sygnał wejściowy tylko do odczytu (`Signal<Student>`). Wariant `.required()` wymusza na rodzicu przekazanie wartości na etapie kompilacji TypeScript – brak atrybutu `[student]` w szablonie rodzica spowoduje błąd kompilacji.
 
-#### Jak działa aktualizacja przez settery w `EditStudent`?
+#### Jak działa edycja i aktualizacja przez settery w `EditStudent`?
 Gdy użytkownik zmienia wartość w polu:
 1. Szablon wywołuje metodę: `(ngModelChange)="aktualizujImie($event)"`.
 2. Metoda wykonuje: `this.student().imie = noweImie`.
 3. Zapis ten wywołuje zdefiniowany w klasie `Student` setter: `set imie(value: string)`, co powoduje walidację (np. obcięcie spacji przez `.trim()`) i zaktualizowanie prywatnego pola `_imie`.
+4. W przypadku edycji ocen istniejących wierszy, wywołanie `this.student().aktualizujOcene(index, nowaWartosc)` weryfikuje zakres i podmienia ocenę w tablicy obiektu.
 
 ---
 
-### b) Szablon komponentu edycji i dodawanie nowej oceny
+### b) Szablon komponentu edycji
 
-Szablon wyświetla bieżące oceny studenta oraz udostępnia pole numeryczne i przycisk *„Dodaj ocenę”*:
+Szablon wyświetla edytowalne pola danych osobowych, listę istniejących ocen z możliwością edycji i usunięcia oraz sekcję dodawania nowej oceny:
 
 ```html
 <section class="formularz-karta edycja-karta">
@@ -627,12 +650,27 @@ Szablon wyświetla bieżące oceny studenta oraz udostępnia pole numeryczne i p
         <span class="brak-ocen">Brak przypisanych ocen.</span>
       } @else {
         @for (ocena of student().oceny; track $index) {
-          <span
-            class="ocena-odznaka"
-            [class.ocena-negatywna]="czyOcenaNegatywna(ocena)"
-          >
-            {{ ocena }}
-          </span>
+          <div class="ocena-wiersz">
+            <input
+              type="number"
+              step="0.5"
+              min="2.0"
+              max="5.0"
+              [ngModel]="ocena"
+              (ngModelChange)="zmienIstniejacaOcene($index, $event)"
+              class="ocena-pole-edycji"
+              [class.ocena-negatywna]="czyOcenaNegatywna(ocena)"
+              aria-label="Edytuj ocenę"
+            />
+            <button
+              type="button"
+              class="przycisk-usun-ocene"
+              (click)="usunOcene($index)"
+              title="Usuń tę ocenę"
+            >
+              ✕
+            </button>
+          </div>
         }
       }
     </div>
@@ -663,7 +701,7 @@ Szablon wyświetla bieżące oceny studenta oraz udostępnia pole numeryczne i p
 </section>
 ```
 
-_(Źródło: [src/app/edit-student/edit-student.html#L1-L81](src/app/edit-student/edit-student.html#L1-L81))_
+_(Źródło: [src/app/edit-student/edit-student.html#L1-L96](src/app/edit-student/edit-student.html#L1-L96))_
 
 ---
 

@@ -45,12 +45,27 @@
         <span class="brak-ocen">Brak przypisanych ocen.</span>
       } @else {
         @for (ocena of student().oceny; track $index) {
-          <span
-            class="ocena-odznaka"
-            [class.ocena-negatywna]="czyOcenaNegatywna(ocena)"
-          >
-            {{ ocena }}
-          </span>
+          <div class="ocena-wiersz">
+            <input
+              type="number"
+              step="0.5"
+              min="2.0"
+              max="5.0"
+              [ngModel]="ocena"
+              (ngModelChange)="zmienIstniejacaOcene($index, $event)"
+              class="ocena-pole-edycji"
+              [class.ocena-negatywna]="czyOcenaNegatywna(ocena)"
+              aria-label="Edytuj ocenę"
+            />
+            <button
+              type="button"
+              class="przycisk-usun-ocene"
+              (click)="usunOcene($index)"
+              title="Usuń tę ocenę"
+            >
+              ✕
+            </button>
+          </div>
         }
       }
     </div>

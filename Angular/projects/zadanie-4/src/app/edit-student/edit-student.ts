@@ -28,6 +28,16 @@ export class EditStudent {
     }
   }
 
+  zmienIstniejacaOcene(index: number, nowaWartosc: number | null): void {
+    if (nowaWartosc !== null && !isNaN(nowaWartosc)) {
+      this.student().aktualizujOcene(index, Number(nowaWartosc));
+    }
+  }
+
+  usunOcene(index: number): void {
+    this.student().usunOcene(index);
+  }
+
   zmienNowaOcena(wartosc: number | null): void {
     this.nowaOcena.set(wartosc !== null ? Number(wartosc) : null);
   }

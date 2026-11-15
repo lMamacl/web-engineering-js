@@ -57,7 +57,7 @@
 .lista-ocen {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin-bottom: 1rem;
   align-items: center;
 }
@@ -68,20 +68,51 @@
   font-size: 0.9rem;
 }
 
-.ocena-odznaka {
-  display: inline-block;
-  padding: 0.25rem 0.6rem;
-  background-color: #e5e7eb;
-  color: #1f2937;
-  border-radius: 4px;
-  font-weight: 600;
+.ocena-wiersz {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ocena-pole-edycji {
+  width: 58px;
+  padding: 0.35rem 0.4rem;
+  border: none;
   font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  background-color: transparent;
+}
+
+.ocena-pole-edycji:focus {
+  background-color: #f0fdf4;
+}
+
+.przycisk-usun-ocene {
+  background: none;
+  border: none;
+  border-left: 1px solid #e5e7eb;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.przycisk-usun-ocene:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
 }
 
 .ocena-negatywna {
   color: #dc2626 !important;
   background-color: #fee2e2 !important;
-  border: 1px solid #f87171;
+  border-color: #f87171 !important;
 }
 
 .dodawanie-oceny {
@@ -137,4 +168,3 @@
 .przycisk-zamknij:hover {
   background-color: #374151;
 }
-
