@@ -1,47 +1,56 @@
-import { Component, effect, signal, output } from '@angular/core';
-import {FormsModule } from '@angular/forms';
+import { Component, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Student } from '../student';
 
 @Component({
-  imports: [FormsModule],
   selector: 'app-add-student',
-  standalone: true,
-  styleUrl: './add-student.css',
+  imports: [FormsModule],
   templateUrl: './add-student.html',
+  styleUrl: './add-student.css',
 })
 export class AddStudent {
-  imie = signal('');
-  nazwisko = signal('');
-  wiek = signal(18);
-  oceny = signal<string>('');
-  studentAdded = output<Student>();
+  readonly imie = signal<string>('');
+  readonly nazwisko = signal<string>('');
+  readonly wiek = signal<number | null>(null);
 
-  constructor() {
-    effect(() => {
-      console.log('Imię:', this.imie());
-      console.log('Nazwisko:', this.nazwisko());
-      console.log('Wiek:', this.wiek());
-      console.log('Oceny:', this.oceny());
-    });
+  readonly studentDodany = output<Student>();
+  readonly anuluj = output<void>();
+
+  zmienImie(wartosc: string): void {
+    this.imie.set(wartosc);
   }
-  dodajStudenta() {
+
+  zmienNazwisko(wartosc: string): void {
+    this.nazwisko.set(wartosc);
+  }
+
+  zmienWiek(wartosc: number | null): void {
+    this.wiek.set(wartosc !== null ? Number(wartosc) : null);
+  }
+
+  zapiszStudenta(): void {
     const imie = this.imie().trim();
     const nazwisko = this.nazwisko().trim();
     const wiek = this.wiek();
-    if (imie === '' || nazwisko === '' || wiek <= 0) {
+
+    if (!imie || !nazwisko || wiek === null || wiek <= 0) {
       alert('Proszę wypełnić wszystkie pola poprawnie.');
       return;
     }
-    const student = new Student(imie, nazwisko, wiek, []);
 
-    this.studentAdded.emit(student);
+    const nowyStudent = new Student(imie, nazwisko, wiek, []);
+    this.studentDodany.emit(nowyStudent);
     this.wyczyscFormularz();
   }
 
-  private wyczyscFormularz() {
-    this.imie.set('');
-    this.nazwisko.set('');
-    this.wiek.set(18);
+  zamknijFormularz(): void {
+    this.wyczyscFormularz();
+    this.anuluj.emit();
   }
 
+  private wyczyscFormularz(): void {
+    this.imie.set('');
+    this.nazwisko.set('');
+    this.wiek.set(null);
+  }
 }

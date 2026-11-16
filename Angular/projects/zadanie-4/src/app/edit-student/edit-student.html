@@ -1,0 +1,96 @@
+<section class="formularz-karta edycja-karta">
+  <h3>Edycja studenta: {{ student().imie }} {{ student().nazwisko }}</h3>
+
+  <form>
+    <div class="pole-formularza">
+      <label for="edit-imie">Imię:</label>
+      <input
+        id="edit-imie"
+        name="edit-imie"
+        type="text"
+        [ngModel]="student().imie"
+        (ngModelChange)="aktualizujImie($event)"
+      />
+    </div>
+
+    <div class="pole-formularza">
+      <label for="edit-nazwisko">Nazwisko:</label>
+      <input
+        id="edit-nazwisko"
+        name="edit-nazwisko"
+        type="text"
+        [ngModel]="student().nazwisko"
+        (ngModelChange)="aktualizujNazwisko($event)"
+      />
+    </div>
+
+    <div class="pole-formularza">
+      <label for="edit-wiek">Wiek:</label>
+      <input
+        id="edit-wiek"
+        name="edit-wiek"
+        type="number"
+        min="1"
+        [ngModel]="student().wiek"
+        (ngModelChange)="aktualizujWiek($event)"
+      />
+    </div>
+  </form>
+
+  <section class="sekcja-ocen">
+    <h4>Oceny studenta</h4>
+
+    <div class="lista-ocen">
+      @if (student().oceny.length === 0) {
+        <span class="brak-ocen">Brak przypisanych ocen.</span>
+      } @else {
+        @for (ocena of student().oceny; track $index) {
+          <div class="ocena-wiersz">
+            <input
+              type="number"
+              step="0.5"
+              min="2.0"
+              max="5.0"
+              [ngModel]="ocena"
+              (ngModelChange)="zmienIstniejacaOcene($index, $event)"
+              class="ocena-pole-edycji"
+              [class.ocena-negatywna]="czyOcenaNegatywna(ocena)"
+              aria-label="Edytuj ocenę"
+            />
+            <button
+              type="button"
+              class="przycisk-usun-ocene"
+              (click)="usunOcene($index)"
+              title="Usuń tę ocenę"
+            >
+              ✕
+            </button>
+          </div>
+        }
+      }
+    </div>
+
+    <div class="dodawanie-oceny">
+      <label for="nowa-ocena">Nowa ocena:</label>
+      <input
+        id="nowa-ocena"
+        type="number"
+        step="0.5"
+        min="2.0"
+        max="5.0"
+        [ngModel]="nowaOcena()"
+        (ngModelChange)="zmienNowaOcena($event)"
+        placeholder="2.0 - 5.0"
+      />
+      <button type="button" class="przycisk przycisk-ocena" (click)="dodajOcene()">
+        Dodaj ocenę
+      </button>
+    </div>
+  </section>
+
+  <div class="akcje-formularza">
+    <button type="button" class="przycisk przycisk-zamknij" (click)="zamknijEdycje()">
+      Zakończ edycję
+    </button>
+  </div>
+</section>

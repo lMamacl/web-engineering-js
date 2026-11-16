@@ -1,0 +1,170 @@
+.edycja-karta {
+  background-color: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.edycja-karta h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #14532d;
+  font-size: 1.2rem;
+}
+
+.pole-formularza {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.85rem;
+}
+
+.pole-formularza label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.pole-formularza input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.pole-formularza input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+}
+
+.sekcja-ocen {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #bbf7d0;
+}
+
+.sekcja-ocen h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #166534;
+  font-size: 1rem;
+}
+
+.lista-ocen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.brak-ocen {
+  color: #6b7280;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.ocena-wiersz {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ocena-pole-edycji {
+  width: 58px;
+  padding: 0.35rem 0.4rem;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  background-color: transparent;
+}
+
+.ocena-pole-edycji:focus {
+  background-color: #f0fdf4;
+}
+
+.przycisk-usun-ocene {
+  background: none;
+  border: none;
+  border-left: 1px solid #e5e7eb;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.przycisk-usun-ocene:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.ocena-negatywna {
+  color: #dc2626 !important;
+  background-color: #fee2e2 !important;
+  border-color: #f87171 !important;
+}
+
+.dodawanie-oceny {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.dodawanie-oceny label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.dodawanie-oceny input {
+  width: 100px;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.akcje-formularza {
+  margin-top: 1.25rem;
+}
+
+.przycisk {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.przycisk-ocena {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.przycisk-ocena:hover {
+  background-color: #1d4ed8;
+}
+
+.przycisk-zamknij {
+  background-color: #4b5563;
+  color: #ffffff;
+}
+
+.przycisk-zamknij:hover {
+  background-color: #374151;
+}

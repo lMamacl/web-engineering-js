@@ -1,0 +1,76 @@
+.formularz-karta {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.formularz-karta h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #1e293b;
+  font-size: 1.2rem;
+}
+
+.pole-formularza {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.85rem;
+}
+
+.pole-formularza label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.pole-formularza input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #94a3b8;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.pole-formularza input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.akcje-formularza {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.przycisk {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.przycisk-sukces {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.przycisk-sukces:hover {
+  background-color: #059669;
+}
+
+.przycisk-anuluj {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.przycisk-anuluj:hover {
+  background-color: #cbd5e1;
+}
+

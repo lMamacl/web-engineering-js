@@ -1,29 +1,83 @@
-<main>
-  <h1>{{ tytul_listy }}</h1>
+<main class="kontener">
+  <header class="naglowek-aplikacji">
+    <h1>{{ tytul_listy }}</h1>
 
-  <app-add-student (studentAdded)="dodajStudenta($event)"></app-add-student>
+    <button
+      type="button"
+      class="przycisk przycisk-glowny"
+      (click)="przelaczDodawanie()"
+    >
+      {{ czyPokazacDodawanie() ? 'Ukryj formularz' : 'Dodaj studenta' }}
+    </button>
+  </header>
 
-  <section>
-    @for (student of studenci; track $index) {
-      <article>
-        <h2
-          (click)="pokazSzczegoly(student)"
-          tabindex="0"
-          role="button"
-        >
-          {{ student.imie }} {{ student.nazwisko }}
-        </h2>
+  @if (czyPokazacDodawanie()) {
+    <app-add-student
+      (studentDodany)="dodajStudenta($event)"
+      (anuluj)="zamknijDodawanie()"
+    ></app-add-student>
+  }
 
-        @if (rozwinietyStudent === student) {
-          <p>Wiek: {{ student.wiek }}</p>
+  @if (edytowanyStudent(); as wybrany) {
+    <app-edit-student
+      [student]="wybrany"
+      (zamknij)="zamknijEdycje()"
+    ></app-edit-student>
+  }
 
-          <p>Oceny:</p>
-
-          @for (ocena of student.oceny; track $index) {
-            <span [class.ocena-negatywna]="ocena === 2.0">
-              {{ ocena }}
+  <section class="lista-studentow">
+    @for (student of studenci(); track $index) {
+      <article
+        class="student-karta"
+        [class.aktywny]="czySzczegolyRozwiniete(student)"
+        [class.edytowany]="czyEdytowany(student)"
+      >
+        <div class="student-wiersz">
+          <div
+            class="student-dane-klik"
+            (click)="przelaczSzczegoly(student)"
+            role="button"
+            tabindex="0"
+          >
+            <span class="ikona-rozwiniecia">
+              {{ czySzczegolyRozwiniete(student) ? '▼' : '▶' }}
             </span>
-          }
+            <span class="student-nazwisko">
+              {{ student.imie }} {{ student.nazwisko }}
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="przycisk przycisk-edycja"
+            (click)="rozpocznijEdycje(student, $event)"
+          >
+            Edytuj
+          </button>
+        </div>
+
+        @if (czySzczegolyRozwiniete(student)) {
+          <div class="student-szczegoly">
+            <p><strong>Wiek:</strong> {{ student.wiek }} lat</p>
+
+            <div class="oceny-kontener">
+              <strong>Oceny:</strong>
+              @if (student.oceny.length === 0) {
+                <span class="brak-ocen">Brak ocen</span>
+              } @else {
+                <div class="oceny-lista">
+                  @for (ocena of student.oceny; track $index) {
+                    <span
+                      class="ocena-odznaka"
+                      [class.ocena-negatywna]="czyOcenaNegatywna(ocena)"
+                    >
+                      {{ ocena }}
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
         }
       </article>
     }
